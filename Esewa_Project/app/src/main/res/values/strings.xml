@@ -10,4 +10,7 @@
     <string name="filter_icon">Filter Icon</string>
     <string name="categories">Categories</string>
     <string name="images">Images</string>
+    <string name="categories_images">Categories Images</string>
+    <string name="mobile">Mobile</string>
+    <string name="featured_products">Featured Products</string>
 </resources>

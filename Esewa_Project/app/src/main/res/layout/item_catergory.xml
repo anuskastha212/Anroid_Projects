@@ -25,7 +25,7 @@
             android:padding="11dp"
             android:scaleType="centerInside"
             android:src="@drawable/c_mobile"
-            android:contentDescription="Categories Images"
+            android:contentDescription="@string/categories_images"
             app:tint="#2E7D32"/>
         
         <TextView
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="Mobile"
+            android:text="@string/mobile"
             android:textColor="#3B3C53"
             android:textSize="11sp"
             />
