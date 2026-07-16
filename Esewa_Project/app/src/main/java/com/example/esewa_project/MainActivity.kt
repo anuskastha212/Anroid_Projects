@@ -96,10 +96,12 @@ class MainActivity : AppCompatActivity() {
                 val response = RetrofitInstance.apiInterface.getData()
 
                 if (response.isSuccessful) {
-                    val productList = response.body()
+                    val apiResponse = response.body()
 
-                    if (productList != null) {
-                        productAdapter.submitList(productList)                    }
+                    val actualProducts = apiResponse?.data
+
+                    if (actualProducts != null) {
+                        productAdapter.products = actualProducts                  }
                 } else {
                     Log.e("MainActivity", "API Error: ${response.message()}")
                 }

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.esewa_project.data.model.Product
 import com.example.esewa_project.databinding.ItemProductBinding
+import kotlin.apply
 
 class ProductAdapter(
     private val onClick: (Product) -> Unit
@@ -26,11 +27,11 @@ class ProductAdapter(
     }
 
     private val differ = AsyncListDiffer(this, diffCallback)
-    var product: List<Product>
+    var products: List<Product>
         get() = differ.currentList
         set(value) {differ.submitList(value)}
 
-    override fun getItemCount() = product.size
+    override fun getItemCount() = products.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         return ProductViewHolder(ItemProductBinding.inflate(
@@ -42,13 +43,13 @@ class ProductAdapter(
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.binding.apply {
-            val products = product[position]
-            titleProduct.text = products.title
-            desProduct.text = products.des
-            priceProduct.text = products.price.toString()
+            val product = products[position]
+            titleProduct.text = product.title
+            desProduct.text = product.des
+            priceProduct.text = product.price.toString()
 
             Glide.with(imgProduct.context)
-                .load(products.image)
+                .load(product.image)
                 .into(imgProduct)
         }
     }
