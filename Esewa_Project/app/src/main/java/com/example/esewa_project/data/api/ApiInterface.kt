@@ -5,6 +5,6 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface ApiInterface {
-    @GET("/api/walmartproducts/")
+    @GET("api/walmartproducts/")
     suspend fun getData(): Response<List<Product>>
 }

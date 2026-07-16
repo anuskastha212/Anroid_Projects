@@ -9,70 +9,46 @@ import com.bumptech.glide.Glide
 import com.example.esewa_project.data.model.Product
 import com.example.esewa_project.databinding.ItemProductBinding
 
-class ProductAdapter :
-    RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+class ProductAdapter(
+    private val onClick: (Product) -> Unit
+) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
-    class ProductViewHolder(
-        val binding: ItemProductBinding
-    ) : RecyclerView.ViewHolder(binding.root)
+    inner class ProductViewHolder(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root)
 
-    private val diffCallback =
-        object : DiffUtil.ItemCallback<Product>() {
-
-            override fun areItemsTheSame(
-                oldItem: Product,
-                newItem: Product
-            ): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(
-                oldItem: Product,
-                newItem: Product
-            ): Boolean {
-                return oldItem == newItem
-            }
+    private val diffCallback = object : DiffUtil.ItemCallback<Product>(){
+        override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
+            return oldItem.id == newItem.id
         }
+
+        override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
+            return oldItem == newItem
+        }
+    }
 
     private val differ = AsyncListDiffer(this, diffCallback)
-
-    var products: List<Product>
+    var product: List<Product>
         get() = differ.currentList
-        set(value) {
-            differ.submitList(value)
-        }
+        set(value) {differ.submitList(value)}
 
-    override fun getItemCount() = products.size
+    override fun getItemCount() = product.size
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ProductViewHolder {
-
-        val binding = ItemProductBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
+        return ProductViewHolder(ItemProductBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
-        )
-
-        return ProductViewHolder(binding)
+        ))
     }
 
-    override fun onBindViewHolder(
-        holder: ProductViewHolder,
-        position: Int
-    ) {
-
-        val product = products[position]
-
+    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.binding.apply {
-
-            titleProduct.text = product.title
-
-            desProduct.text = product.des
+            val products = product[position]
+            titleProduct.text = products.title
+            desProduct.text = products.des
+            priceProduct.text = products.price.toString()
 
             Glide.with(imgProduct.context)
-                .load(product.image)
+                .load(products.image)
                 .into(imgProduct)
         }
     }

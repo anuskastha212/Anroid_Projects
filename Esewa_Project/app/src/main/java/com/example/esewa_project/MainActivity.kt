@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
@@ -98,7 +99,7 @@ class MainActivity : AppCompatActivity() {
                     val productList = response.body()
 
                     if (productList != null) {
-                        productAdapter.products = productList
+                        productAdapter.product = productList
                     }
                 } else {
                     Log.e("MainActivity", "API Error: ${response.message()}")
@@ -110,8 +111,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupFeaturedProductRecyclerView() = binding.rvProducts.apply {
-        productAdapter = ProductAdapter()
+
+        productAdapter = ProductAdapter { product ->
+            Toast.makeText(
+                this@MainActivity,
+                product.title,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
         adapter = productAdapter
-        layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL,false)
+
+        layoutManager = LinearLayoutManager(
+            this@MainActivity,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
     }
 }
