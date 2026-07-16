@@ -22,6 +22,7 @@ import com.example.esewa_project.ui.adapter.ProductAdapter
 import com.example.esewa_project.data.source.CategoryData
 import com.example.esewa_project.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
+import androidx.recyclerview.widget.GridLayoutManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -123,10 +124,6 @@ class MainActivity : AppCompatActivity() {
 
         adapter = productAdapter
 
-        layoutManager = LinearLayoutManager(
-            this@MainActivity,
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
+        layoutManager = GridLayoutManager(this@MainActivity, 2)
     }
 }
