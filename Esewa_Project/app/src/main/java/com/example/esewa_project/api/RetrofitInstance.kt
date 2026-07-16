@@ -7,12 +7,12 @@ object RetrofitInstance {
 
     private val retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://fakestoreapi.noksha.dev/api")
+            .baseUrl("https://fakestoreapi.noksha.dev")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
-    val apiInterface by lazy {
+    val apiInterface: ApiInterface by lazy {
         retrofit.create((ApiInterface::class.java))
     }
 }

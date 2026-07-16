@@ -1,23 +1,26 @@
 package com.example.esewa_project
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.example.esewa_project.api.RetrofitInstance
 import com.example.esewa_project.ui.adapter.BannerAdapter
 import com.example.esewa_project.ui.adapter.CategoryAdapter
 import com.example.esewa_project.ui.adapter.ProductAdapter
 import com.example.esewa_project.data.source.CategoryData
 import com.example.esewa_project.databinding.ActivityMainBinding
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -62,8 +65,6 @@ class MainActivity : AppCompatActivity() {
         val adapter = BannerAdapter(bannerImages)
         viewPager.adapter = adapter
 
-//        setupIndicators(bannerImages.size)
-
         dots = bannerIndicator.setupIndicator(
             this@MainActivity,
             bannerImages.size,
@@ -88,54 +89,29 @@ class MainActivity : AppCompatActivity() {
 
         val rvCategories = findViewById<RecyclerView>(R.id.rv_categories)
         rvCategories.adapter = CategoryAdapter(categoryData.getCategoryData())
+
+        lifecycleScope.launch {
+            try {
+                val response = RetrofitInstance.apiInterface.getData()
+
+                if (response.isSuccessful) {
+                    val productList = response.body()
+
+                    if (productList != null) {
+                        productAdapter.products = productList
+                    }
+                } else {
+                    Log.e("MainActivity", "API Error: ${response.message()}")
+                }
+            } catch (e: Exception) {
+                Log.e("MainActivity", "Exception: ${e.message}")
+            }
+        }
     }
 
     private fun setupFeaturedProductRecyclerView() = binding.rvProducts.apply {
         productAdapter = ProductAdapter()
         adapter = productAdapter
-        layoutManager = LinearLayoutManager(this@MainActivity)
+        layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL,false)
     }
-
-//    private fun setupIndicators(count: Int) {
-//        dots = arrayOfNulls(count)
-//        val params = LinearLayout.LayoutParams(
-//            LinearLayout.LayoutParams.WRAP_CONTENT,
-//            LinearLayout.LayoutParams.WRAP_CONTENT
-//        ).apply { setMargins(8, 0, 8, 0) }
-//
-//        for (i in 0 until count) {
-//            dots[i] = ImageView(this)
-//            dots[i]?.setImageDrawable(
-//                ContextCompat.getDrawable(
-//                    this,
-//                    R.drawable.indicator_inactive
-//                )
-//            )
-//            layoutDots.addView(dots[i], params)
-//        }
-//    }
-
-//    private fun setCurrentIndicator(index: Int) {
-//        val childCount = layoutDots.childCount
-//        for (i in 0 until childCount) {
-//            val imageView = layoutDots.getChildAt(i) as ImageView
-//            if (i == index) {
-//                imageView.setImageDrawable(
-//                    ContextCompat.getDrawable(
-//                        this,
-//                        R.drawable.indicator_active
-//                    )
-//                )
-//            } else {
-//                imageView.setImageDrawable(
-//                    ContextCompat.getDrawable(
-//                        this,
-//                        R.drawable.indicator_inactive
-//                    )
-//                )
-//            }
-//        }
-//    }
-
-
 }
