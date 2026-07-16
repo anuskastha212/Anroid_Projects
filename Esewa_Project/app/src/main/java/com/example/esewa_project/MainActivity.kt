@@ -14,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.example.esewa_project.api.RetrofitInstance
+import com.example.esewa_project.data.api.RetrofitInstance
 import com.example.esewa_project.ui.adapter.BannerAdapter
 import com.example.esewa_project.ui.adapter.CategoryAdapter
 import com.example.esewa_project.ui.adapter.ProductAdapter

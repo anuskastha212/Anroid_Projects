@@ -1,4 +1,4 @@
-package com.example.esewa_project.api
+package com.example.esewa_project.data.api
 
 import com.example.esewa_project.data.model.Product
 import retrofit2.Response

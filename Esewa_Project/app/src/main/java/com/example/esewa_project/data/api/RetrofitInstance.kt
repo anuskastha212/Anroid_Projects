@@ -1,4 +1,4 @@
-package com.example.esewa_project.api
+package com.example.esewa_project.data.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
