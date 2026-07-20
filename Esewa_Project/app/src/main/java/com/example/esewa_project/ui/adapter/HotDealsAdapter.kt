@@ -10,9 +10,9 @@ import com.example.esewa_project.data.model.Product
 import com.example.esewa_project.databinding.ItemProductBinding
 import kotlin.apply
 
-class ProductAdapter(
+class HotDealsAdapter(
     private val onClick: (Product) -> Unit
-) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+) : RecyclerView.Adapter<HotDealsAdapter.ProductViewHolder>() {
 
     inner class ProductViewHolder(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root)
 

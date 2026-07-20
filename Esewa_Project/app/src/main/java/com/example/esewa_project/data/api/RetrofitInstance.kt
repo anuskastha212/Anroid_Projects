@@ -7,20 +7,19 @@ object RetrofitInstance {
 
     private const val BASE_URL = "https://dummyjson.com/"
 
-    val instance by lazy {
+    val api: ApiInterface by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-    }
-    private val retrofit by lazy {
-        Retrofit.Builder()
-            .baseUrl("https://fakestoreapi.noksha.dev/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+            .create(ApiInterface::class.java)
     }
 
-    val apiInterface by lazy {
-        retrofit.create(ApiInterface::class.java)
+    val productApi: ApiInterface by lazy {
+        Retrofit.Builder()
+            .baseUrl("https://fakestoreapi.noksha.dev")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ApiInterface::class.java)
     }
 }

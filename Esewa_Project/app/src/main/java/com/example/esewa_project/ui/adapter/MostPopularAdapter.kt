@@ -17,25 +17,26 @@ class MostPopularAdapter (
         val tvMostPopular: TextView= view.findViewById(R.id.tvMostPopular)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MostPopularViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int
+    ): MostPopularViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_catergory,parent,false)
-            return MostPopularViewHolder(view)
+            .inflate(R.layout.item_mostpopular,parent,false)
+        return MostPopularViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MostPopularViewHolder, position: Int) {
         val most = mostPopular[position]
-        holder.tvMostPopular.text = mostPopular.tvMostPopular
+        holder.tvMostPopular.text = most.name
 
         holder.itemView.setOnClickListener {
-            onItemClick(mostPopular.tvMostPopular)
+            onItemClick(most.name)
         }
     }
 
     override fun getItemCount(): Int = mostPopular.size
 
-    fun updateData(new_mostPopular: List<MostPopular>){
-        mostPopular =new_mostPopular
+    fun updateData(newMostPopular: List<MostPopular>){
+        mostPopular =newMostPopular
         notifyDataSetChanged()
     }
 }
