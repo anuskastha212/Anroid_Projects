@@ -8,7 +8,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.HtmlCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
@@ -27,7 +26,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var productAdapter: ProductAdapter
     private lateinit var viewPager: ViewPager2
     private lateinit var layoutDots: LinearLayout
     private lateinit var dots: Array<ImageView?>
@@ -52,14 +50,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        setupFeaturedProductRecyclerView()
-
-        val john = findViewById<TextView>(R.id.john)
-
-        john.text = HtmlCompat.fromHtml(
-            getString(R.string.john),
-            HtmlCompat.FROM_HTML_MODE_LEGACY
-        )
 
         viewPager = findViewById(R.id.view_pager_banner)
         layoutDots = findViewById(R.id.layout_dots)
@@ -92,38 +82,6 @@ class MainActivity : AppCompatActivity() {
         val rvCategories = findViewById<RecyclerView>(R.id.rv_categories)
         rvCategories.adapter = CategoryAdapter(categoryData.getCategoryData())
 
-        lifecycleScope.launch {
-            try {
-                val response = RetrofitInstance.apiInterface.getData()
-
-                if (response.isSuccessful) {
-                    val apiResponse = response.body()
-
-                    val actualProducts = apiResponse?.data
-
-                    if (actualProducts != null) {
-                        productAdapter.products = actualProducts.take(4)               }
-                } else {
-                    Log.e("MainActivity", "API Error: ${response.message()}")
-                }
-            } catch (e: Exception) {
-                Log.e("MainActivity", "Exception: ${e.message}")
-            }
-        }
     }
 
-    private fun setupFeaturedProductRecyclerView() = binding.rvProducts.apply {
-
-        productAdapter = ProductAdapter { product ->
-            Toast.makeText(
-                this@MainActivity,
-                product.title,
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-
-        adapter = productAdapter
-
-        layoutManager = GridLayoutManager(this@MainActivity, 2)
-    }
 }
