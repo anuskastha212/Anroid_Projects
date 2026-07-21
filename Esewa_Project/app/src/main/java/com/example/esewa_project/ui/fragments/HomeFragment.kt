@@ -153,8 +153,6 @@ class HomeFragment : Fragment(R.layout.fragment_home){
         layoutManager = GridLayoutManager(    requireContext(),2)
     }
 
-
-
     private fun getAllProducts() {
 
         viewLifecycleOwner.lifecycleScope.launch {
