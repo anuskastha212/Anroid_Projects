@@ -119,8 +119,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onSelect(linearLayout: LinearLayout?, textView: TextView?, imageView: ImageView?) {
         textView?.visibility = View.VISIBLE
-        imageView?.imageTintList =
-            ColorStateList.valueOf(ContextCompat.getColor(this, R.color.green))
+        imageView?.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.green))
         linearLayout?.setBackgroundResource(R.drawable.bg_bottom_nav)
         linearLayout?.animate()
             ?.scaleX(1.1f)

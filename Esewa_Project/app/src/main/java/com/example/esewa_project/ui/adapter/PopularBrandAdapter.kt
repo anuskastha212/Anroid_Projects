@@ -45,7 +45,7 @@ class PopularBrandAdapter(
         holder.binding.apply {
             val product = products[position]
             titleProduct.text = product.title
-            brandProduct.text = product.brand
+            brandProduct.text = product.category
             priceProduct.text = product.price.toString()
 
             root.setOnClickListener {
@@ -53,7 +53,7 @@ class PopularBrandAdapter(
             }
 
             Glide.with(imgProduct.context)
-                .load(product.image)
+                .load(product.thumbnail)
                 .into(imgProduct)
         }
     }

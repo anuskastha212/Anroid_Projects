@@ -1,5 +1,6 @@
 package com.example.esewa_project.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.esewa_project.BannerIndicator
+import com.example.esewa_project.ProductDetailActivity
 import com.example.esewa_project.R
 import com.example.esewa_project.data.api.RetrofitInstance
 import com.example.esewa_project.data.source.BannerImages
@@ -95,16 +97,15 @@ class HomeFragment : Fragment(R.layout.fragment_home){
     private fun setupFeaturedProductRecyclerView() = binding.rvFeaturedProducts.apply {
 
         featuredProductAdapter = FeaturedProductAdapter { product ->
-            Toast.makeText(
-                requireContext(),
-                product.title,
-                Toast.LENGTH_SHORT
-            ).show()
+            val intent = Intent(requireContext(), ProductDetailActivity::class.java)
+            intent.putExtra("product_id", product.id)
+            startActivity(intent)
         }
 
         adapter = featuredProductAdapter
 
         layoutManager = GridLayoutManager(    requireContext(),2)
+        isNestedScrollingEnabled = false
     }
 
     private fun setupHotDealsRecyclerView() = binding.rvHotDeals.apply {
@@ -159,28 +160,31 @@ class HomeFragment : Fragment(R.layout.fragment_home){
 
             try {
 
-                val response = RetrofitInstance.productApi.getAllProducts()
+                val products = RetrofitInstance.productApi.getAllProducts()
 
-                if (response.isSuccessful) {
+                Log.d("API", "Products = ${products.size}")
+                Log.d("API", products.toString())
 
-                    val allProducts = response.body()?.data
-
-                    if (allProducts != null) {
-                        featuredProductAdapter.products = allProducts.take(2)
-
-                        hotDealsAdapter.products = allProducts.drop(2).take(2)
-
-                        popularBrandAdapter.products = allProducts.drop(4).take(4)
-
-                        recommendedAdapter.products = allProducts.drop(8).take(8)
-                    }
-
-                } else {
-                    Log.e("HomeFragment", "API Error: ${response.message()}")
-                }
+                featuredProductAdapter.products = products.take(2)
 
             } catch (e: Exception) {
-                Log.e("HomeFragment", "Exception: ${e.message}")
+                Log.e("API", "Exception", e)
+            }
+        }
+    }
+
+    private fun getProduct(id: Int) {
+
+        viewLifecycleOwner.lifecycleScope.launch {
+
+            try {
+
+                val product = RetrofitInstance.productApi.getProductById(id)
+
+                Log.d("PRODUCT", product.toString())
+
+            } catch (e: Exception) {
+                Log.e("PRODUCT", "Error", e)
             }
         }
     }

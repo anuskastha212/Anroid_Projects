@@ -1,17 +1,15 @@
 package com.example.esewa_project.data.model
 
-import com.google.gson.annotations.SerializedName
-
 data class Product(
-    @SerializedName("_id")
     val id: Int,
-
     val title: String,
-    val des: String,
-    val oldPrice: Double,
+    val description: String,
     val price: Double,
-    val brand: String,
-    val image: String,
-    val isNew: Boolean,
-    val category: String
+    val category: String,
+    val thumbnail: String,
+    val stock: Int,
+    val images: List<String>,
+    val options: Map<String, List<String>>,
+    val rating: Double,
+    val reviewCount: Int
 )

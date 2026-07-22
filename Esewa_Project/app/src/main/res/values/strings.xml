@@ -33,4 +33,10 @@
     <string name="favourite">Favourite</string>
     <string name="more_icon">More Icon</string>
     <string name="more">More</string>
+    <string name="jacket_in_nylon">Jacket In Nylon</string>
+    <string name="rs_2500">Rs.2500</string>
+    <string name="availability_in_stock">Availability : In Stock</string>
+    <string name="description">Description</string>
+    <string name="product_description">Product description</string>
+    <string name="back_button">Back Button</string>
 </resources>
