@@ -29,8 +29,8 @@
     <string name="shop_icon">Shop Icon</string>
     <string name="cart_icon">Cart Icon</string>
     <string name="cart">Cart</string>
-    <string name="heart_icon">Heart Icon</string>
-    <string name="heart">Heart</string>
+    <string name="favourite_icon">Favourite Icon</string>
+    <string name="favourite">Favourite</string>
     <string name="more_icon">More Icon</string>
     <string name="more">More</string>
 </resources>

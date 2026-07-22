@@ -2,25 +2,29 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomNav"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:gravity="center_vertical"
-    android:paddingHorizontal="16dp"
+    android:gravity="center"
+    android:paddingHorizontal="6dp"
     android:paddingVertical="12dp"
-    android:background="#FFFFFF">
+    android:layout_marginEnd="16dp">
 
     <LinearLayout
         android:id="@+id/navItemShop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:minHeight="5dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="@drawable/bg_bottom_nav"
         android:clickable="true"
         android:focusable="true"
         android:paddingVertical="10dp"
-        android:paddingHorizontal="16dp">
+        android:paddingHorizontal="16dp"
+        android:layout_marginEnd="12dp">
 
         <ImageView
             android:id="@+id/iconShop"
@@ -34,10 +38,11 @@
             android:id="@+id/textShop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="5dp"
             android:text="@string/shop"
             android:textColor="#28AD17"
             android:textStyle="bold"
+            android:maxLines="1"
             android:visibility="visible"/>
 
     </LinearLayout>
@@ -46,13 +51,16 @@
         android:id="@+id/navItemCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:minHeight="5dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="@drawable/bg_bottom_nav"
+        android:background="@android:color/transparent"
         android:clickable="true"
         android:focusable="true"
         android:paddingVertical="10dp"
-        android:paddingHorizontal="16dp">
+        android:paddingHorizontal="16dp"
+        android:layout_marginEnd="12dp">
 
         <ImageView
             android:id="@+id/iconCart"
@@ -66,43 +74,48 @@
             android:id="@+id/textCart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="5dp"
             android:text="@string/cart"
             android:textColor="#28AD17"
+            android:maxLines="1"
             android:textStyle="bold"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/navItemHeart"
+        android:id="@+id/navItemFavourite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:minHeight="5dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="@drawable/bg_bottom_nav"
+        android:background="@android:color/transparent"
         android:clickable="true"
         android:focusable="true"
         android:paddingVertical="10dp"
-        android:paddingHorizontal="16dp">
+        android:paddingHorizontal="16dp"
+        android:layout_marginEnd="12dp">
 
         <ImageView
-            android:id="@+id/iconHeart"
+            android:id="@+id/iconFavourite"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/heart"
-            android:contentDescription="@string/heart_icon"
+            android:contentDescription="@string/favourite_icon"
             app:tint="#28AD17" />
 
         <TextView
-            android:id="@+id/textHeart"
+            android:id="@+id/textFavourite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/heart"
+            android:layout_marginStart="5dp"
+            android:text="@string/favourite"
             android:textColor="#28AD17"
             android:textStyle="bold"
-            android:visibility="visible"/>
+            android:maxLines="1"
+            android:visibility="gone"/>
 
     </LinearLayout>
 
@@ -110,9 +123,11 @@
         android:id="@+id/navItemMore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:minHeight="5dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="@drawable/bg_bottom_nav"
+        android:background="@android:color/transparent"
         android:clickable="true"
         android:focusable="true"
         android:paddingVertical="10dp"
@@ -130,14 +145,13 @@
             android:id="@+id/textMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="5dp"
             android:text="@string/more"
             android:textColor="#28AD17"
             android:textStyle="bold"
-            android:visibility="visible"/>
+            android:maxLines="1"
+            android:visibility="gone"/>
 
     </LinearLayout>
-
-
 
 </LinearLayout>
