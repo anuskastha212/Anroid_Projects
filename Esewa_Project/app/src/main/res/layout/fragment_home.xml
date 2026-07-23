@@ -126,16 +126,18 @@
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/layout_dots"
                 android:layout_width="wrap_content"
-                android:layout_height="12dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
-                app:tabMinWidth="20dp"
+                app:tabMinWidth="16dp"
+                app:tabGravity="center"
+                app:tabMode="fixed"
                 android:background="@android:color/transparent"
                 app:tabBackground="@drawable/indicator_selector"
-                android:paddingStart="4dp"
-                android:paddingEnd="4dp"
                 app:tabIndicatorHeight="0dp"
-                app:tabRippleColor="@android:color/transparent"/>
+                app:tabRippleColor="@android:color/transparent"
+                app:tabPaddingStart="8dp"
+                app:tabPaddingEnd="8dp" />
 
             <TextView
                 android:id="@+id/categories"
@@ -233,7 +235,8 @@
                 android:id="@+id/rv_most_popular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
+                android:clipToPadding="false"
                 android:layout_marginHorizontal="16dp" />
 
             <TextView

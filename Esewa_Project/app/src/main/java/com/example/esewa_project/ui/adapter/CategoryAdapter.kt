@@ -8,9 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.esewa_project.R
 import com.example.esewa_project.data.model.Category
+import com.example.esewa_project.data.model.Product
 
-class CategoryAdapter(private val categoryList: List<Category>)
-    : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(){
+class CategoryAdapter(
+    private val categoryList: List<Category>,
+    private val onClick: (Category) -> Unit
+) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(){
     class CategoryViewHolder(itemView: View)
         : RecyclerView.ViewHolder(itemView){
             val icon: ImageView = itemView.findViewById(R.id.img_category_icon)
@@ -25,8 +28,13 @@ class CategoryAdapter(private val categoryList: List<Category>)
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = categoryList[position]
+
         holder.icon.setImageResource(category.iconResId)
         holder.name.text = category.name
+
+        holder.itemView.setOnClickListener {
+            onClick(category)
+        }
     }
 
     override fun getItemCount(): Int = categoryList.size

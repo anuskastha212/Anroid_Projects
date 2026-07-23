@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.esewa_project.ProductDetailActivity
 import com.example.esewa_project.R
@@ -78,6 +79,15 @@ class HomeFragment : Fragment(R.layout.fragment_home){
 
     private fun setupCategories() {
         binding.rvCategories.adapter = CategoryAdapter(categoryData.getCategoryData())
+        { category ->
+
+            Toast.makeText(
+                requireContext(),
+                category.name,
+                Toast.LENGTH_SHORT
+            ).show()
+
+        }
     }
     private fun setupFeaturedProductRecyclerView() = binding.rvFeaturedProducts.apply {
 
@@ -121,9 +131,7 @@ class HomeFragment : Fragment(R.layout.fragment_home){
 
         adapter = popularBrandAdapter
 
-        layoutManager = LinearLayoutManager(requireContext(),
-            LinearLayoutManager.HORIZONTAL,
-            false)
+        layoutManager = GridLayoutManager(requireContext(),2)
         isNestedScrollingEnabled = false
     }
 
@@ -137,9 +145,7 @@ class HomeFragment : Fragment(R.layout.fragment_home){
 
         adapter = recommendedAdapter
 
-        layoutManager = LinearLayoutManager(requireContext(),
-            LinearLayoutManager.HORIZONTAL,
-            false)
+        layoutManager = GridLayoutManager(requireContext(),2)
         isNestedScrollingEnabled = false
     }
 
@@ -156,8 +162,8 @@ class HomeFragment : Fragment(R.layout.fragment_home){
 
                 featuredProductAdapter.products = products.take(7)
                 hotDealsAdapter.products = products.drop(7).take(7)
-                popularBrandAdapter.products = products.drop(14).take(7)
-                recommendedAdapter.products = products.drop(21).take(7)
+                popularBrandAdapter.products = products.drop(14).take(4)
+                recommendedAdapter.products = products.drop(18).take(8)
 
             } catch (e: Exception) {
                 Log.e("API", "Exception", e)
