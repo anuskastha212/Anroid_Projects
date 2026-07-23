@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.esewa_project.BannerIndicator
 import com.example.esewa_project.ProductDetailActivity
@@ -104,54 +105,58 @@ class HomeFragment : Fragment(R.layout.fragment_home){
 
         adapter = featuredProductAdapter
 
-        layoutManager = GridLayoutManager(    requireContext(),2)
+        layoutManager = LinearLayoutManager(requireContext(),
+            LinearLayoutManager.HORIZONTAL,
+            false)
         isNestedScrollingEnabled = false
     }
 
     private fun setupHotDealsRecyclerView() = binding.rvHotDeals.apply {
 
         hotDealsAdapter = HotDealsAdapter() { product ->
-            Toast.makeText(
-                requireContext(),
-                product.title,
-                Toast.LENGTH_SHORT
-            ).show()
+            val intent = Intent(requireContext(), ProductDetailActivity::class.java)
+            intent.putExtra("product_id", product.id)
+            startActivity(intent)
         }
 
         adapter = hotDealsAdapter
 
-        layoutManager = GridLayoutManager(    requireContext(),2)
+        layoutManager = LinearLayoutManager(requireContext(),
+            LinearLayoutManager.HORIZONTAL,
+            false)
+        isNestedScrollingEnabled = false
     }
-
 
     private fun setupPopularBrandRecyclerView() = binding.rvPopularBrands.apply {
 
         popularBrandAdapter = PopularBrandAdapter() { product ->
-            Toast.makeText(
-                requireContext(),
-                product.title,
-                Toast.LENGTH_SHORT
-            ).show()
+            val intent = Intent(requireContext(), ProductDetailActivity::class.java)
+            intent.putExtra("product_id", product.id)
+            startActivity(intent)
         }
 
         adapter = popularBrandAdapter
 
-        layoutManager = GridLayoutManager(    requireContext(),2)
+        layoutManager = LinearLayoutManager(requireContext(),
+            LinearLayoutManager.HORIZONTAL,
+            false)
+        isNestedScrollingEnabled = false
     }
 
     private fun setupRecommendedRecyclerView() = binding.rvRecommended.apply {
 
         recommendedAdapter = RecommendedAdapter() { product ->
-            Toast.makeText(
-                requireContext(),
-                product.title,
-                Toast.LENGTH_SHORT
-            ).show()
+            val intent = Intent(requireContext(), ProductDetailActivity::class.java)
+            intent.putExtra("product_id", product.id)
+            startActivity(intent)
         }
 
         adapter = recommendedAdapter
 
-        layoutManager = GridLayoutManager(    requireContext(),2)
+        layoutManager = LinearLayoutManager(requireContext(),
+            LinearLayoutManager.HORIZONTAL,
+            false)
+        isNestedScrollingEnabled = false
     }
 
     private fun getAllProducts() {
@@ -165,7 +170,10 @@ class HomeFragment : Fragment(R.layout.fragment_home){
                 Log.d("API", "Products = ${products.size}")
                 Log.d("API", products.toString())
 
-                featuredProductAdapter.products = products.take(2)
+                featuredProductAdapter.products = products.take(7)
+                hotDealsAdapter.products = products.drop(7).take(7)
+                popularBrandAdapter.products = products.drop(14).take(7)
+                recommendedAdapter.products = products.drop(21).take(7)
 
             } catch (e: Exception) {
                 Log.e("API", "Exception", e)

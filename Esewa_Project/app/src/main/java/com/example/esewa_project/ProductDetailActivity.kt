@@ -51,7 +51,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
                 Toast.makeText(
                     this@ProductDetailActivity,
-                    e.message,
+                    e.message ?: "Something went wrong",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -64,7 +64,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
             tvProductName.text = product.title
             des.text = product.description
-            tvProductPrice.text = "$${product.price}"
+            tvProductPrice.text = "Rs. ${product.price}"
 
             Glide.with(this@ProductDetailActivity)
                 .load(product.thumbnail)
