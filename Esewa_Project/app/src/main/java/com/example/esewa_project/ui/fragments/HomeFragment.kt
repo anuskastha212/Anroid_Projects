@@ -168,22 +168,27 @@ class HomeFragment : Fragment(R.layout.fragment_home){
         }
     }
 
-    private fun setupMostPopularRecyclerView(){
+    private fun setupMostPopularRecyclerView() {
+
         val flexboxLayoutManager = FlexboxLayoutManager(requireContext()).apply {
             flexDirection = FlexDirection.ROW
             flexWrap = FlexWrap.WRAP
         }
-            mostPopularAdapter = MostPopularAdapter(emptyList()){ categoryData ->
-                Toast.makeText(requireContext(),
-                    " $categoryData",
-                    Toast.LENGTH_SHORT)
-                    .show()
-            }
-            binding.rvMostPopular.apply{
-                layoutManager = flexboxLayoutManager
-                adapter= mostPopularAdapter
-                isNestedScrollingEnabled = false
-            }
+
+        mostPopularAdapter = MostPopularAdapter { categoryData ->
+
+            Toast.makeText(
+                requireContext(),
+                categoryData,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        binding.rvMostPopular.apply {
+            layoutManager = flexboxLayoutManager
+            adapter = mostPopularAdapter
+            isNestedScrollingEnabled = false
+        }
     }
     private fun getMostPopularCategories() {
 
@@ -194,7 +199,7 @@ class HomeFragment : Fragment(R.layout.fragment_home){
 
                 if (response.isSuccessful) {
                     response.body()?.let {categories ->
-                        mostPopularAdapter.updateData(categories.take((7)))
+                        mostPopularAdapter.mostPopular = categories.take(7)
                     }
                 }
             } catch (e: Exception) {

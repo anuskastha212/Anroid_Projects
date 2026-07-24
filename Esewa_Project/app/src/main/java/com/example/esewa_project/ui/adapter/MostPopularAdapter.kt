@@ -1,42 +1,72 @@
 package com.example.esewa_project.ui.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.esewa_project.R
 import com.example.esewa_project.data.model.MostPopular
+import com.example.esewa_project.databinding.ItemMostpopularBinding
 
-class MostPopularAdapter (
-    private var mostPopular: List<MostPopular>,
-    private var onItemClick: (String) -> Unit
-) : RecyclerView.Adapter<MostPopularAdapter.MostPopularViewHolder>(){
+class MostPopularAdapter(
+    private val onItemClick: (String) -> Unit
+) : RecyclerView.Adapter<MostPopularAdapter.MostPopularViewHolder>() {
 
-    class MostPopularViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        val tvMostPopular: TextView= view.findViewById(R.id.tvMostPopular)
+    inner class MostPopularViewHolder(
+        val binding: ItemMostpopularBinding
+    ) : RecyclerView.ViewHolder(binding.root)
+
+    private val diffCallback = object : DiffUtil.ItemCallback<MostPopular>() {
+
+        override fun areItemsTheSame(
+            oldItem: MostPopular,
+            newItem: MostPopular): Boolean {
+            return oldItem.name == newItem.name
+        }
+
+        override fun areContentsTheSame(
+            oldItem: MostPopular,
+            newItem: MostPopular): Boolean {
+            return oldItem == newItem
+        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int
-    ): MostPopularViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_mostpopular,parent,false)
-        return MostPopularViewHolder(view)
+    private val differ = AsyncListDiffer(this, diffCallback)
+
+    var mostPopular: List<MostPopular>
+        get() = differ.currentList
+        set(value) {
+            differ.submitList(value)
+        }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MostPopularViewHolder {
+
+        val binding = ItemMostpopularBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+
+        return MostPopularViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MostPopularViewHolder, position: Int) {
-        val most = mostPopular[position]
-        holder.tvMostPopular.text = most.name
 
-        holder.itemView.setOnClickListener {
-            onItemClick(most.name)
+        val most = mostPopular[position]
+
+        holder.binding.apply {
+
+            tvMostPopular.text = most.name
+
+            root.setOnClickListener {
+                onItemClick(most.name)
+            }
         }
     }
 
     override fun getItemCount(): Int = mostPopular.size
 
-    fun updateData(newMostPopular: List<MostPopular>){
-        mostPopular =newMostPopular
-        notifyDataSetChanged()
+    fun submitList(list: List<MostPopular>) {
+        differ.submitList(list)
     }
 }
